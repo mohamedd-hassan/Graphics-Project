@@ -7,13 +7,15 @@ public class Player extends JPanel {
     int startingAngle;
     int addingAngle;
 
-    Player(int pox, int poy,int radius,int startingAngle,int addingAngle)
+
+
+    Player(int posX, int posY,int _radius,int _startingAngle,int _addingAngle)
     {
-        pox=pox;
-        poy=poy;
-        radius=radius;
-        startingAngle=startingAngle;
-        addingAngle=addingAngle;
+        pox=posX;
+        poy=posY;
+        radius=_radius;
+        startingAngle=_startingAngle;
+        addingAngle=_addingAngle;
     }
 
     public void draw(Graphics g)

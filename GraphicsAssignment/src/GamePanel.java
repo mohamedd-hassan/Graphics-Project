@@ -1,6 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
     final int screenWidth = 720;
@@ -9,8 +12,20 @@ public class GamePanel extends JPanel implements Runnable {
     KListener kListener= new KListener();
     Thread gameThread;
 
+    int playerX = 50;
+    int playerY = 50;
+    int playerSpeed = 4;
+    int startingAngle = 45;
+    int addingAngle = 270;
+    int playerRadius = 50;
+    private BufferedImage image;
     public GamePanel()
     {
+        try {
+            image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/pacmanMaze.png"));
+        } catch (IOException e){
+            System.out.println(e);
+        }
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.addKeyListener(kListener);
@@ -20,10 +35,11 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread()
     {
         gameThread = new Thread(this);
+        gameThread.start();
     }
     @Override
     public void run() {
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = (double) 1000000000 / FPS;
         double nextDrawTime = System.nanoTime() +drawInterval;
         while (gameThread != null)
         {
@@ -32,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
             repaint();
 
             try {
-                double remainingTime = nextDrawTime -System.nanoTime();
+                double remainingTime = nextDrawTime - currentTime;
                 remainingTime =remainingTime/1000000;
                 if (remainingTime<0)
                 {
@@ -49,13 +65,39 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update()
     {
+        if(kListener.rightPressed){
+            playerX += playerSpeed;
+            startingAngle = 45;
+        }
 
+        else if (kListener.leftPressed){
+            playerX -= playerSpeed;
+            startingAngle = 225;
+        }
+
+        else if(kListener.upPressed){
+            playerY -= playerSpeed;
+            startingAngle = 135;
+        }
+
+        else if(kListener.downPressed){
+            playerY += playerSpeed;
+            startingAngle = 315;
+        }
+
+        if (playerX  == screenWidth + playerRadius){
+            playerX = -playerRadius;
+        }
+        else if (playerX == -playerRadius){
+            playerX = screenWidth + playerRadius;
+        }
     }
 
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        Player player=new Player(100,100,50,45,270);
+        g.drawImage(image, 0, 0, this);
+        Player player=new Player(playerX,playerY,playerRadius,startingAngle,addingAngle);
         player.draw(g);
         g.dispose();
     }
