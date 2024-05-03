@@ -14,7 +14,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     int playerX = 50;
     int playerY = 50;
-    int playerSpeed = 4;
+    int playerSpeedX = 4;
+    int playerSpeedY = 0;
     int startingAngle = 45;
     int addingAngle = 270;
     int playerRadius = 50;
@@ -65,23 +66,29 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update()
     {
+        playerX += playerSpeedX;
+        playerY += playerSpeedY;
         if(kListener.rightPressed){
-            playerX += playerSpeed;
+            playerSpeedX = 4;
+            playerSpeedY = 0;
             startingAngle = 45;
         }
 
         else if (kListener.leftPressed){
-            playerX -= playerSpeed;
+            playerSpeedX = -4;
+            playerSpeedY = 0;
             startingAngle = 225;
         }
 
         else if(kListener.upPressed){
-            playerY -= playerSpeed;
+            playerSpeedX = 0;
+            playerSpeedY = -4;
             startingAngle = 135;
         }
 
         else if(kListener.downPressed){
-            playerY += playerSpeed;
+            playerSpeedX = 0;
+            playerSpeedY = 4;
             startingAngle = 315;
         }
 
