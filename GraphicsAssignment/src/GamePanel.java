@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends Collision implements Runnable  {
     final int screenWidth = 720;
     final int screenHeight = 640;
     final int FPS =60;
     KListener kListener= new KListener();
     Thread gameThread;
-
+    boolean collidetest;
     int playerX = 50;
     int playerY = 50;
     int playerSpeedX = 4;
@@ -19,6 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     int startingAngle = 45;
     int addingAngle = 270;
     int playerRadius = 50;
+    HitBoxes playerbox =new HitBoxes(playerX,playerY,playerRadius,playerRadius);
+    HitBoxes box =new HitBoxes(100,100,100,100);
     private BufferedImage image;
     public GamePanel()
     {
@@ -66,8 +68,47 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update()
     {
+         CollisionCheck(playerX,playerY,playerRadius,playerRadius,100,100,100,100);
         playerX += playerSpeedX;
         playerY += playerSpeedY;
+        if (collided)
+        {
+            playerSpeedX=0;
+            playerSpeedY=0;
+        }
+        if(kListener.rightPressed&& collided){
+            playerSpeedX = 4;
+            playerSpeedY = 0;
+            startingAngle = 45;
+            playerX+=playerSpeedX;
+            collided=false;
+        }
+
+        else if (kListener.leftPressed&&collided){
+            playerSpeedX = -4;
+            playerSpeedY = 0;
+            startingAngle = 225;
+            playerX+=playerSpeedX;
+            collided=false;
+        }
+
+        else if(kListener.upPressed&&collided){
+            playerSpeedX = 0;
+            playerSpeedY = -4;
+            startingAngle = 135;
+            playerY+=playerSpeedY;
+            collided=false;
+        }
+
+        else if(kListener.downPressed&&collided){
+            playerSpeedX = 0;
+            playerSpeedY = 4;
+            startingAngle = 315;
+            playerY+=playerSpeedY;
+            collided=false;
+        }
+
+
         if(kListener.rightPressed){
             playerSpeedX = 4;
             playerSpeedY = 0;
@@ -104,8 +145,10 @@ public class GamePanel extends JPanel implements Runnable {
     {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
-        Player player=new Player(playerX,playerY,playerRadius,startingAngle,addingAngle);
+        Player player=new Player(playerX,playerY,playerRadius,startingAngle,addingAngle,playerbox);
+        Player player1=new Player(100,100,100,0,360,box);
         player.draw(g);
+        player1.draw(g);
         g.dispose();
     }
 }

@@ -1,21 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Player extends JPanel {
+public class Player extends JPanel  {
     int pox,poy; // position x,y
     int radius;
     int startingAngle;
     int addingAngle;
 
+    HitBoxes hitBoxes= new HitBoxes(pox,poy,radius,radius);
 
 
-    Player(int posX, int posY,int _radius,int _startingAngle,int _addingAngle)
+
+    Player(int posX, int posY,int _radius,int _startingAngle,int _addingAngle,HitBoxes boxes)
     {
         pox=posX;
         poy=posY;
         radius=_radius;
         startingAngle=_startingAngle;
         addingAngle=_addingAngle;
+        hitBoxes=boxes;
     }
 
     public void draw(Graphics g)
