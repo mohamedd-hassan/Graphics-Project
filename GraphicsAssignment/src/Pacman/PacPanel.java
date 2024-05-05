@@ -72,7 +72,7 @@ public class PacPanel extends Collision implements Runnable  {
 
     public void update()
     {
-         CollisionCheck(playerX,playerY,300,300,100,100);
+         CollisionCheck(playerX,playerY,playerRadius,playerRadius,300,300,100,100);
         playerX += playerSpeedX;
         playerY += playerSpeedY;
         if (collided)
