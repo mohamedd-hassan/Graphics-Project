@@ -1,8 +1,10 @@
-import javax.imageio.ImageIO;
+package Pong;
+
+import Common.Collision;
+import Common.HitBoxes;
+import Common.KListener;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class PongPanel extends Collision implements Runnable {
     final int screenWidth = 720;

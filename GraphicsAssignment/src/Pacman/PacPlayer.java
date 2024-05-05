@@ -1,17 +1,19 @@
+package Pacman;
+
+import Common.HitBoxes;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Player extends JPanel  {
+public class PacPlayer extends JPanel  {
     int pox,poy; // position x,y
     int radius;
     int startingAngle;
     int addingAngle;
 
-    HitBoxes hitBoxes= new HitBoxes(pox,poy,radius,radius);
+    HitBoxes hitBoxes;
 
-
-
-    Player(int posX, int posY,int _radius,int _startingAngle,int _addingAngle,HitBoxes boxes)
+    PacPlayer(int posX, int posY, int _radius, int _startingAngle, int _addingAngle, HitBoxes boxes)
     {
         pox=posX;
         poy=posY;

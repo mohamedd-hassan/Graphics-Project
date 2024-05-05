@@ -1,9 +1,11 @@
+package Common;
+
 public class Solids {
-    int solidx,solidy,solidWidth,solidHeight;
+    int solidX,solidY,solidWidth,solidHeight;
     Solids(int x , int y,int width, int height )
     {
-        solidx=x;
-        solidy=y;
+        solidX=x;
+        solidY=y;
         solidWidth=width;
         solidHeight=height;
     }

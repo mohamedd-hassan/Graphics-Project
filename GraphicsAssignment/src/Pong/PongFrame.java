@@ -1,7 +1,9 @@
+package Pong;
+
 import javax.swing.*;
 
 public class PongFrame {
-    PongFrame() {
+    public PongFrame() {
         JFrame pong = new JFrame();
         PongPanel gamePanel = new PongPanel();
         pong.add(gamePanel);

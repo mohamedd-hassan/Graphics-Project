@@ -1,17 +1,21 @@
+package Pacman;
+
+import Common.Collision;
+import Common.HitBoxes;
+import Common.KListener;
+
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class GamePanel extends Collision implements Runnable  {
+public class PacPanel extends Collision implements Runnable  {
     final int screenWidth = 720;
     final int screenHeight = 640;
     final int FPS =60;
     KListener kListener= new KListener();
     Thread gameThread;
-    boolean collidetest;
     int playerX = 50;
     int playerY = 50;
     int playerSpeedX = 4;
@@ -19,10 +23,10 @@ public class GamePanel extends Collision implements Runnable  {
     int startingAngle = 45;
     int addingAngle = 270;
     int playerRadius = 50;
-    HitBoxes playerbox =new HitBoxes(playerX,playerY,playerRadius,playerRadius);
+    HitBoxes playerBox =new HitBoxes(playerX,playerY,playerRadius,playerRadius);
     HitBoxes box =new HitBoxes(100,100,100,100);
     private BufferedImage image;
-    public GamePanel()
+    public PacPanel()
     {
         try {
             image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/pacmanMaze.png"));
@@ -68,7 +72,7 @@ public class GamePanel extends Collision implements Runnable  {
 
     public void update()
     {
-         CollisionCheck(playerX,playerY,playerRadius,playerRadius,100,100,100,100);
+         CollisionCheck(playerX,playerY,300,300,100,100);
         playerX += playerSpeedX;
         playerY += playerSpeedY;
         if (collided)
@@ -76,7 +80,7 @@ public class GamePanel extends Collision implements Runnable  {
             playerSpeedX=0;
             playerSpeedY=0;
         }
-        if(kListener.rightPressed&& collided){
+        if(kListener.rightPressed && collided){
             playerSpeedX = 4;
             playerSpeedY = 0;
             startingAngle = 45;
@@ -145,10 +149,11 @@ public class GamePanel extends Collision implements Runnable  {
     {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
-        Player player=new Player(playerX,playerY,playerRadius,startingAngle,addingAngle,playerbox);
-        Player player1=new Player(100,100,100,0,360,box);
-        player.draw(g);
-        player1.draw(g);
+        PacPlayer pacPlayer =new PacPlayer(playerX,playerY,playerRadius,startingAngle,addingAngle, playerBox);
+        PacPlayer pacPlayer1 =new PacPlayer(100,100,100,0,360,box);
+        g.drawRect(300,300,100,100);
+        pacPlayer.draw(g);
+        pacPlayer1.draw(g);
         g.dispose();
     }
 }

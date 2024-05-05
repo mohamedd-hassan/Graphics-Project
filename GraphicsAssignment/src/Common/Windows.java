@@ -1,3 +1,8 @@
+package Common;
+
+import Pacman.PacFrame;
+import Pong.PongFrame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,13 +11,13 @@ public class Windows extends JFrame implements ActionListener {
     JButton pacman;
     JButton pong;
     JPanel main;
-    GamePanel gamePanel;
-    Windows()
+
+    public Windows()
     {
 
-        main= new JPanel();
-        pong=new JButton();
-        pacman= new JButton();
+        main = new JPanel();
+        pong =new JButton();
+        pacman = new JButton();
         pacman.setText("pacman");
         pacman.setFocusable(false);
         pacman.addActionListener(this);
@@ -35,19 +40,15 @@ public class Windows extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-         if (e.getSource()== pacman)
+         if (e.getSource() == pacman)
          {
             this.dispose();
-            PacFrame pacFrame=new PacFrame();
-
+            PacFrame pacFrame = new PacFrame();
          }
-        if (e.getSource()== pong)
+        if (e.getSource() == pong)
         {
             this.dispose();
-            PongFrame pacFrame=new PongFrame();
-
+            PongFrame pongFrame = new PongFrame();
         }
-
-
     }
 }
