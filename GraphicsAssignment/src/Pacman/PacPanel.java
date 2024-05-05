@@ -137,10 +137,10 @@ public class PacPanel extends Collision implements Runnable  {
             startingAngle = 315;
         }
 
-        if (playerX  == screenWidth + playerRadius){
+        if ((playerX - playerRadius) >= screenWidth-1){
             playerX = -playerRadius;
         }
-        else if (playerX == -playerRadius){
+        else if (playerX <= -playerRadius){
             playerX = screenWidth + playerRadius;
         }
     }
