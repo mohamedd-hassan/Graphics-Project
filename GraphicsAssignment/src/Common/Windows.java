@@ -11,6 +11,8 @@ public class Windows extends JFrame implements ActionListener {
     JButton pacman;
     JButton pong;
     JPanel main;
+   public PongFrame pongFrame;
+   public  PacFrame pacFrame;
 
     public Windows()
     {
@@ -43,12 +45,12 @@ public class Windows extends JFrame implements ActionListener {
          if (e.getSource() == pacman)
          {
             this.dispose();
-            PacFrame pacFrame = new PacFrame();
+            pacFrame = new PacFrame();
          }
         if (e.getSource() == pong)
         {
             this.dispose();
-            PongFrame pongFrame = new PongFrame();
+              pongFrame = new PongFrame();
         }
     }
 }
