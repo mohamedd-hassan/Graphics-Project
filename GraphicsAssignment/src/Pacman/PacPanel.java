@@ -11,25 +11,25 @@ import java.io.File;
 import java.io.IOException;
 
 public class PacPanel extends Collision implements Runnable  {
-    final int screenWidth = 720;
+    final int screenWidth = 490;
     final int screenHeight = 640;
     final int FPS =60;
     KListener kListener= new KListener();
     Thread gameThread;
-    int playerX = 50;
-    int playerY = 50;
-    int playerSpeedX = 4;
+    int playerX = 233;
+    int playerY = 455;
+    int playerSpeedX = 0;
     int playerSpeedY = 0;
     int startingAngle = 45;
     int addingAngle = 270;
-    int playerRadius = 50;
+    int playerRadius = 30;
     HitBoxes playerBox =new HitBoxes(playerX,playerY,playerRadius,playerRadius);
     HitBoxes box =new HitBoxes(100,100,100,100);
     private BufferedImage image;
     public PacPanel()
     {
         try {
-            image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/pacmanMaze.png"));
+            image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/Maze.png"));
         } catch (IOException e){
             System.out.println(e);
         }
@@ -151,7 +151,7 @@ public class PacPanel extends Collision implements Runnable  {
         g.drawImage(image, 0, 0, this);
         PacPlayer pacPlayer =new PacPlayer(playerX,playerY,playerRadius,startingAngle,addingAngle, playerBox);
         PacPlayer pacPlayer1 =new PacPlayer(100,100,100,0,360,box);
-        g.drawRect(300,300,100,100);
+        g.fillRect(300,300,100,100);
         pacPlayer.draw(g);
         pacPlayer1.draw(g);
         g.dispose();
