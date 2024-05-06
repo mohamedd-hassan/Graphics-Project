@@ -83,19 +83,19 @@ public class PongPanel extends Collision implements Runnable {
         {
             ballxspeed = -ballxspeed;
             ballx+= ballxspeed -5 ;
-            bally+=player2SpeedY;
+            ballyspeed+=player2SpeedY;
             collided=false;
         }
          if (collied(ballx,bally,balldiameter,balldiameter,player1x,player1y,playerwidth,playerheight))
         {
             ballxspeed = -ballxspeed;
             ballx+= ballxspeed +10 ;
-            bally+=player2SpeedY;
+            ballyspeed+=player2SpeedY;
             collided=false;
         }
 
         if ((bally + balldiameter)-screenHeight>=0){
-            ballyspeed = -ballyspeed;
+            ballyspeed = -ballyspeed ;
         }
         else if (bally <=0 ){
             ballyspeed = -ballyspeed;
@@ -122,10 +122,6 @@ public class PongPanel extends Collision implements Runnable {
             player1SpeedY = 5;
             player1y+=player1SpeedY;
         }
-        else
-        {
-            player1SpeedY=0;
-        }
         if(kListener.arrowUpPressed){
             player2SpeedY = -5;
             player2y+=player2SpeedY;
@@ -134,10 +130,6 @@ public class PongPanel extends Collision implements Runnable {
         else if(kListener.arrowDownPressed){
             player2SpeedY = 5;
             player2y+=player2SpeedY;
-        }
-        else
-        {
-            player2SpeedY=0;
         }
         if ((player1y + playerheight)-screenHeight>=0){
             player1y =  screenHeight - playerheight-5;
@@ -154,7 +146,9 @@ public class PongPanel extends Collision implements Runnable {
 
         if(player1Score==11||player2Score==11)
         {
-           // WinnerFrame winnerFrame = new WinnerFrame();
+
+            WinnerFrame winnerFrame = new WinnerFrame();
+            gameThread.interrupt();
         }
 
     }
