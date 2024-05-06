@@ -1,5 +1,7 @@
 package Common;
 
+import javax.swing.*;
+
 public class Collision extends HitBoxes {
 
     //HitBoxes hitBoxes1 = new HitBoxes(boxX,boxY,Width,Height);

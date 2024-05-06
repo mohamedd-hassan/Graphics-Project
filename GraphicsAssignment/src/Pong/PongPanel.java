@@ -3,8 +3,6 @@ package Pong;
 import Common.Collision;
 import Common.HitBoxes;
 import Common.KListener;
-import Pacman.PacFrame;
-import javax.swing.*;
 
 import java.awt.*;
 
@@ -144,11 +142,17 @@ public class PongPanel extends Collision implements Runnable {
             player2y = 5;
         }
 
-        if(player1Score==11||player2Score==11)
+        if(player1Score==1)
         {
-
-            WinnerFrame winnerFrame = new WinnerFrame();
+            Winner1Frame winnerFrame = new Winner1Frame();
             gameThread.interrupt();
+
+        }
+        if(player2Score==1)
+        {
+            Winner2Frame winnerFrame = new Winner2Frame();
+            gameThread.interrupt();
+
         }
 
     }
