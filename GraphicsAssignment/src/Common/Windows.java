@@ -50,7 +50,7 @@ public class Windows extends JFrame implements ActionListener {
         if (e.getSource() == pong)
         {
             this.dispose();
-              pongFrame = new PongFrame();
+            pongFrame = new PongFrame();
         }
     }
 }
