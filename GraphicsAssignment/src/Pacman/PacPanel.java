@@ -28,11 +28,11 @@ public class PacPanel extends Collision implements Runnable  {
     private BufferedImage image;
     public PacPanel()
     {
-//        try {
-//            image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/Maze.png"));
-//        } catch (IOException e){
-//            System.out.println(e);
-//        }
+        try {
+            image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/Maze.png"));
+        } catch (IOException e){
+            System.out.println(e);
+        }
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.addKeyListener(kListener);
@@ -72,45 +72,55 @@ public class PacPanel extends Collision implements Runnable  {
 
     public void update()
     {
-         CollisionCheck(playerX,playerY,playerRadius,playerRadius,300,300,100,100);
+
         playerX += playerSpeedX;
         playerY += playerSpeedY;
-        if (collided)
+        if (collied(playerX+playerSpeedX, playerY, playerRadius, playerRadius, 300, 300, 100, 100) || collied(playerX, playerY+playerSpeedY, playerRadius, playerRadius, 300, 300, 100, 100))
         {
-            playerSpeedX=0;
-            playerSpeedY=0;
-        }
-        if(kListener.rightPressed && collided){
-            playerSpeedX = 2;
-            playerSpeedY = 0;
-            startingAngle = 45;
-            playerX+=playerSpeedX;
-            collided=false;
-        }
+            if(startingAngle==45){
+                playerX--;
+                playerSpeedX=0;
+                playerSpeedY=0;
+                collided=false;
+            }
+            else if(playerSpeedY != 0){
+                playerSpeedX=0;
+                playerSpeedY=0;
+                collided=false;
+            }
 
-        else if (kListener.leftPressed&&collided){
-            playerSpeedX = -2;
-            playerSpeedY = 0;
-            startingAngle = 225;
-            playerX+=playerSpeedX;
-            collided=false;
         }
-
-        else if(kListener.upPressed&&collided){
-            playerSpeedX = 0;
-            playerSpeedY = -2;
-            startingAngle = 135;
-            playerY+=playerSpeedY;
-            collided=false;
-        }
-
-        else if(kListener.downPressed&&collided){
-            playerSpeedX = 0;
-            playerSpeedY = 2;
-            startingAngle = 315;
-            playerY+=playerSpeedY;
-            collided=false;
-        }
+//        if(kListener.rightPressed && collided){
+////            playerSpeedX = 2;
+////            playerSpeedY = 0;
+//            startingAngle = 45;
+//            playerX+=playerSpeedX;
+//            collided=false;
+//        }
+//
+//        else if (kListener.leftPressed&&collided){
+//            playerSpeedX = -2;
+//            playerSpeedY = 0;
+//            startingAngle = 225;
+//            playerX+=playerSpeedX;
+//            collided=false;
+//        }
+//
+//        else if(kListener.upPressed&&collided){
+//            playerSpeedX = 0;
+//            playerSpeedY = -2;
+//            startingAngle = 135;
+//            playerY+=playerSpeedY;
+//            collided=false;
+//        }
+//
+//        else if(kListener.downPressed&&collided){
+//            playerSpeedX = 0;
+//            playerSpeedY = 2;
+//            startingAngle = 315;
+//            playerY+=playerSpeedY;
+//            collided=false;
+//        }
 
 
         if(kListener.rightPressed){
