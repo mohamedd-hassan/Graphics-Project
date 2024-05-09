@@ -36,7 +36,7 @@ public class PacMaze extends JPanel {
         g2d.drawPolygon(new int[]{359,340,340,290,290,340,340,359},new int[]{170, 170, 222, 222, 240, 240, 290, 290},8);
 
         g2d.drawPolygon(new int[]{},new int[]{},8);
-        g2d.drawPolygon([new int[]{},new int[]{},8);
+        g2d.drawPolygon(new int[]{},new int[]{},8);
 //
 //        g2d.drawPolygon([],[],);
 //        g2d.drawPolygon([],[],);
