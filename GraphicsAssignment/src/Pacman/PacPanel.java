@@ -28,11 +28,11 @@ public class PacPanel extends Collision implements Runnable  {
     private BufferedImage image;
     public PacPanel()
     {
-        try {
-            image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/Maze.png"));
-        } catch (IOException e){
-            System.out.println(e);
-        }
+//        try {
+//            image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/Maze.png"));
+//        } catch (IOException e){
+//            System.out.println(e);
+//        }
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.addKeyListener(kListener);
@@ -81,7 +81,7 @@ public class PacPanel extends Collision implements Runnable  {
             playerSpeedY=0;
         }
         if(kListener.rightPressed && collided){
-            playerSpeedX = 4;
+            playerSpeedX = 2;
             playerSpeedY = 0;
             startingAngle = 45;
             playerX+=playerSpeedX;
@@ -89,7 +89,7 @@ public class PacPanel extends Collision implements Runnable  {
         }
 
         else if (kListener.leftPressed&&collided){
-            playerSpeedX = -4;
+            playerSpeedX = -2;
             playerSpeedY = 0;
             startingAngle = 225;
             playerX+=playerSpeedX;
@@ -98,7 +98,7 @@ public class PacPanel extends Collision implements Runnable  {
 
         else if(kListener.upPressed&&collided){
             playerSpeedX = 0;
-            playerSpeedY = -4;
+            playerSpeedY = -2;
             startingAngle = 135;
             playerY+=playerSpeedY;
             collided=false;
@@ -106,7 +106,7 @@ public class PacPanel extends Collision implements Runnable  {
 
         else if(kListener.downPressed&&collided){
             playerSpeedX = 0;
-            playerSpeedY = 4;
+            playerSpeedY = 2;
             startingAngle = 315;
             playerY+=playerSpeedY;
             collided=false;
@@ -114,26 +114,26 @@ public class PacPanel extends Collision implements Runnable  {
 
 
         if(kListener.rightPressed){
-            playerSpeedX = 4;
+            playerSpeedX = 2;
             playerSpeedY = 0;
             startingAngle = 45;
         }
 
         else if (kListener.leftPressed){
-            playerSpeedX = -4;
+            playerSpeedX = -2;
             playerSpeedY = 0;
             startingAngle = 225;
         }
 
         else if(kListener.upPressed){
             playerSpeedX = 0;
-            playerSpeedY = -4;
+            playerSpeedY = -2;
             startingAngle = 135;
         }
 
         else if(kListener.downPressed){
             playerSpeedX = 0;
-            playerSpeedY = 4;
+            playerSpeedY = 2;
             startingAngle = 315;
         }
 
@@ -150,10 +150,9 @@ public class PacPanel extends Collision implements Runnable  {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
         PacPlayer pacPlayer =new PacPlayer(playerX,playerY,playerRadius,startingAngle,addingAngle, playerBox);
-        PacPlayer pacPlayer1 =new PacPlayer(100,100,100,0,360,box);
-        g.fillRect(300,300,100,100);
+        PacMaze pacMaze = new PacMaze();
         pacPlayer.draw(g);
-        pacPlayer1.draw(g);
+        pacMaze.draw(g);
         g.dispose();
     }
 }
