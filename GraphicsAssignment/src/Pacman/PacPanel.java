@@ -9,25 +9,50 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
+
+import static java.lang.Math.random;
 
 public class PacPanel extends Collision implements Runnable  {
     final int screenWidth = 490;
     final int screenHeight = 640;
+    int rows = 27;
+    int columns =35;
+    boolean[][] grid =new boolean[rows][columns];
+
+
+
+
+    float cellHeight=screenHeight/rows;
+    float cellWidth = screenWidth/columns;
     final int FPS =60;
     KListener kListener= new KListener();
     Thread gameThread;
     int playerX = 233;
-    int playerY = 455;
+    int playerY = 460; // the prev number was 455
     int playerSpeedX = 0;
     int playerSpeedY = 0;
     int startingAngle = 45;
     int addingAngle = 270;
-    int playerRadius = 30;
+    int playerRadius = 20; // the prev number was 30
+    float playerIndexX = playerX/cellWidth;
+    float playerIndexY = (playerY/cellHeight);
+
+
     HitBoxes playerBox =new HitBoxes(playerX,playerY,playerRadius,playerRadius);
     HitBoxes box =new HitBoxes(100,100,100,100);
     private BufferedImage image;
     public PacPanel()
     {
+        for (int row = 0; row < grid.length; row++) {
+            for (int column = 0; column < grid[row].length; column++) {
+                //each cell has a 20% chance of being an obstacle
+                if (random() < .2) {
+                    grid[row][column] = true;
+                }
+            }
+        }
+
         try {
             image = ImageIO.read(new File("GraphicsAssignment/src/resources/images/Maze.png"));
         } catch (IOException e){
@@ -73,23 +98,15 @@ public class PacPanel extends Collision implements Runnable  {
     public void update()
     {
 
-        playerX += playerSpeedX;
-        playerY += playerSpeedY;
-        if (collied(playerX+playerSpeedX, playerY, playerRadius, playerRadius, 300, 300, 100, 100) || collied(playerX, playerY+playerSpeedY, playerRadius, playerRadius, 300, 300, 100, 100))
-        {
-            if(startingAngle==45){
-                playerX--;
-                playerSpeedX=0;
-                playerSpeedY=0;
-                collided=false;
-            }
-            else if(playerSpeedY != 0){
-                playerSpeedX=0;
-                playerSpeedY=0;
-                collided=false;
-            }
+       if((int) playerIndexY > 0 && !grid[(int) playerIndexY-1][(int) playerIndexX]||(int) playerIndexY < rows-1 && !grid[(int) playerIndexY+1][(int)playerIndexX]||(int) playerIndexX > 0 && !grid[(int) playerIndexY][(int) playerIndexX-1]||(int) playerIndexX < columns-1 && !grid[(int) playerIndexY][(int) playerIndexX+1])
+       { playerX += playerSpeedX;
+        playerY += playerSpeedY;}
+       else
+       {
+           playerSpeedX=0;
+           playerIndexY=0;
+       }
 
-        }
 //        if(kListener.rightPressed && collided){
 ////            playerSpeedX = 2;
 ////            playerSpeedY = 0;
@@ -121,15 +138,28 @@ public class PacPanel extends Collision implements Runnable  {
 //            playerY+=playerSpeedY;
 //            collided=false;
 //        }
-
+//        if(playerIndexX < columns-1 &&kListener.rightPressed && grid[(int) playerIndexY][(int) ++playerIndexX]){
+//           playerX=-(2*playerSpeedX);
+//       }
+//        if(playerIndexX > 0 &&kListener.leftPressed && grid[(int) playerIndexY][(int) --playerIndexX]){
+//            playerX=+(2*playerSpeedX);
+//        }
+//        if(playerIndexY > 0 &&kListener.upPressed && grid[(int) --playerIndexY][(int) playerIndexX]){
+//            playerX=-(2*playerSpeedX);
+//        }
+//        if(playerIndexY < rows-1&&kListener.downPressed && grid[(int) ++playerIndexY][(int) playerIndexX]){
+//            playerX=+(2*playerSpeedX);
+//        }
 
         if(kListener.rightPressed){
+
             playerSpeedX = 2;
             playerSpeedY = 0;
             startingAngle = 45;
         }
 
         else if (kListener.leftPressed){
+
             playerSpeedX = -2;
             playerSpeedY = 0;
             startingAngle = 225;
@@ -160,9 +190,25 @@ public class PacPanel extends Collision implements Runnable  {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
         PacPlayer pacPlayer =new PacPlayer(playerX,playerY,playerRadius,startingAngle,addingAngle, playerBox);
-        PacMaze pacMaze = new PacMaze();
+        //PacMaze pacMaze = new PacMaze();
         pacPlayer.draw(g);
-        pacMaze.draw(g);
+        //pacMaze.draw(g);
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+
+                float cellX = cellWidth*column;
+                float cellY = cellHeight*row;
+                if (grid[row][column])
+                {
+                    g.setColor(Color.red);
+                    g.fillRect((int) cellX, (int) cellY, (int) cellWidth, (int) cellHeight);
+                }
+
+                g.setColor(Color.yellow);
+                g.drawRect((int) cellX, (int) cellY, (int) cellWidth, (int) cellHeight);
+            }
+        }
+
         g.dispose();
     }
 }

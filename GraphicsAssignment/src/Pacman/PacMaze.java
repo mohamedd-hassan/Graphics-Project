@@ -1,4 +1,4 @@
-package Pacman;
+/*package Pacman;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,3 +46,4 @@ public class PacMaze extends JPanel {
 //        g2d.drawPolygon([],[],8);
     }
 }
+*/
