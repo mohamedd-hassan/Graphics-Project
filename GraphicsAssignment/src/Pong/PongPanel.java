@@ -18,7 +18,7 @@ public class PongPanel extends Collision implements Runnable {
     int player2x=660;
     int player2y=250;
     int playerwidth=20;
-    int playerheight=200;
+    int playerheight=75;
     int player1SpeedY=0;
     int player2SpeedY=0;
 
@@ -80,8 +80,10 @@ public class PongPanel extends Collision implements Runnable {
         if(collied(ballx,bally,balldiameter,balldiameter,player2x,player2y,playerwidth,playerheight))
         {
             ballxspeed = -ballxspeed;
-            ballx+= ballxspeed -5 ;
-            ballyspeed+=player2SpeedY;
+            ballx+= ballxspeed -5;
+            if(ballyspeed<10){
+                ballyspeed+=player2SpeedY/3;
+            }
             collided=false;
         }
          if (collied(ballx,bally,balldiameter,balldiameter,player1x,player1y,playerwidth,playerheight))
@@ -112,21 +114,21 @@ public class PongPanel extends Collision implements Runnable {
             player2y =  screenHeight - playerheight-5;
         }
         if(kListener.upPressed){
-            player1SpeedY = -5;
+            player1SpeedY = -15;
             player1y+=player1SpeedY;
         }
 
         else if(kListener.downPressed){
-            player1SpeedY = 5;
+            player1SpeedY = 15;
             player1y+=player1SpeedY;
         }
         if(kListener.arrowUpPressed){
-            player2SpeedY = -5;
+            player2SpeedY = -15;
             player2y+=player2SpeedY;
         }
 
         else if(kListener.arrowDownPressed){
-            player2SpeedY = 5;
+            player2SpeedY = 15;
             player2y+=player2SpeedY;
         }
         if ((player1y + playerheight)-screenHeight>=0){
@@ -142,13 +144,13 @@ public class PongPanel extends Collision implements Runnable {
             player2y = 5;
         }
 
-        if(player1Score==1)
+        if(player1Score==7)
         {
             Winner1Frame winnerFrame = new Winner1Frame();
             gameThread.interrupt();
 
         }
-        if(player2Score==1)
+        if(player2Score==7)
         {
             Winner2Frame winnerFrame = new Winner2Frame();
             gameThread.interrupt();

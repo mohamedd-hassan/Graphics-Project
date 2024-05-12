@@ -98,7 +98,9 @@ public class PacPanel extends Collision implements Runnable  {
     public void update()
     {
 
-       if((int) playerIndexY > 0 && !grid[(int) playerIndexY-1][(int) playerIndexX]||(int) playerIndexY < rows-1 && !grid[(int) playerIndexY+1][(int)playerIndexX]||(int) playerIndexX > 0 && !grid[(int) playerIndexY][(int) playerIndexX-1]||(int) playerIndexX < columns-1 && !grid[(int) playerIndexY][(int) playerIndexX+1])
+       if(((int) playerIndexY > 0 & grid[(int) playerIndexY-1][(int) playerIndexX]) |((int) playerIndexY < rows-1 & grid[(int) playerIndexY+1][(int)playerIndexX])
+               |((int) playerIndexX > 0 & grid[(int) playerIndexY][(int) playerIndexX-1])
+               |((int) playerIndexX < columns-1 & grid[(int) playerIndexY][(int) playerIndexX+1]))
        { playerX += playerSpeedX;
         playerY += playerSpeedY;}
        else
